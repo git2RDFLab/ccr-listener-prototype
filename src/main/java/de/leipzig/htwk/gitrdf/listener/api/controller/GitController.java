@@ -32,7 +32,6 @@ public class GitController {
         return GitRepositoryOrderResponse.toList(results);
     }
 
-    // TODO (ccr): Fix ResponseStatusException or replace!
     @PostMapping(path = "/api/v1/git/upload")
     public GitRepositorySavedResponse uploadGitRepository(
             @RequestParam("file") MultipartFile file, @RequestParam("name") String fileName) throws IOException {
