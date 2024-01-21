@@ -3,6 +3,10 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    url: jdbc:postgresql://postgresdb:5432/gitrdfdb
+    url: jdbc:postgresql://localhost:5432/gitrdfdb
     username: root
     password: example # temporary for prototyping
+  servlet:
+    multipart:
+      max-file-size: 2GB
+      max-request-size: 2GB
