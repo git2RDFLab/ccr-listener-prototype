@@ -33,9 +33,9 @@ public class GitServiceImpl implements GitService {
 
     @Override
     @Transactional
-    public long insertGitMultipartFileIntoQueue(MultipartFile file) throws IOException {
+    public long insertGitMultipartFileIntoQueue(MultipartFile file, String fileName) throws IOException {
 
-        GitRepositoryOrderEntity gitRepositoryOrderEntity = GitRepositoryOrderEntity.newOrder();
+        GitRepositoryOrderEntity gitRepositoryOrderEntity = GitRepositoryOrderEntity.newOrder(fileName);
         entityManager.persist(gitRepositoryOrderEntity);
 
         GitRepositoryOrderEntityLobs gitRepositoryOrderEntityLobs = new GitRepositoryOrderEntityLobs();

@@ -11,7 +11,11 @@ import java.util.List;
 public class GitRepositoryOrderResponse {
 
     public static GitRepositoryOrderResponse from(GitRepositoryOrderEntity entity) {
-        return new GitRepositoryOrderResponse(entity.getId(), entity.getStatus(), entity.getNumberOfTries());
+        return new GitRepositoryOrderResponse(
+                entity.getId(),
+                entity.getStatus(),
+                entity.getNumberOfTries(),
+                entity.getFileName());
     }
 
     public static List<GitRepositoryOrderResponse> toList(List<GitRepositoryOrderEntity> entities) {
@@ -21,4 +25,5 @@ public class GitRepositoryOrderResponse {
     long id;
     GitRepositoryOrderStatus status;
     int numberOfTries;
+    String fileName;
 }

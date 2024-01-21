@@ -5,3 +5,5 @@ https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.2.2
 
 ### CURL-Example to upload file
 curl -XPOST -F "file=@gitexample.zip;name=field1;filename=gitexample.zip;type=application/zip" localhost:8080/api/v1/git/upload
+
+curl -XPOST -F "file=@gitexample.zip;filename=gitexample.zip;type=application/zip" localhost:8080/api/v1/git/upload?name=abc

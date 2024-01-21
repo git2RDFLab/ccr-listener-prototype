@@ -19,9 +19,10 @@ public interface GitService {
      * Inserts the given .git repository (in the multipart file) into the worker queue.
      *
      * @param file The .git repository (in the multipart file).
+     * @param fileName The name of the file.
      * @return The id of the queue entry.
      */
-    long insertGitMultipartFileIntoQueue(MultipartFile file) throws IOException;
+    long insertGitMultipartFileIntoQueue(MultipartFile file, String fileName) throws IOException;
 
 
 

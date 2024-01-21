@@ -11,12 +11,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GitRepositoryOrderEntity {
 
-    public static GitRepositoryOrderEntity newOrder() {
+    public static GitRepositoryOrderEntity newOrder(String fileName) {
 
         GitRepositoryOrderEntity gitRepositoryOrderEntity = new GitRepositoryOrderEntity();
 
         gitRepositoryOrderEntity.setStatus(GitRepositoryOrderStatus.RECEIVED);
         gitRepositoryOrderEntity.setNumberOfTries(0);
+        gitRepositoryOrderEntity.setFileName(fileName);
 
         return gitRepositoryOrderEntity;
     }
@@ -24,6 +25,9 @@ public class GitRepositoryOrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, length = 255)
+    private String fileName;
 
     @Enumerated(EnumType.STRING)
     private GitRepositoryOrderStatus status;

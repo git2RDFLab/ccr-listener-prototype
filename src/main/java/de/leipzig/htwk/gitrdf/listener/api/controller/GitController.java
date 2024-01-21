@@ -32,7 +32,8 @@ public class GitController {
 
     // TODO (ccr): Fix ResponseStatusException or replace!
     @PostMapping(path = "/api/v1/git/upload")
-    public GitRepositorySavedResponse uploadGitRepository(@RequestParam("file") MultipartFile file) throws IOException {
+    public GitRepositorySavedResponse uploadGitRepository(
+            @RequestParam("file") MultipartFile file, @RequestParam("name") String fileName) throws IOException {
 
         if (file.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No file was given.");
@@ -50,7 +51,7 @@ public class GitController {
                     "Invalid zip file. The zip file should only contain the .git directory and its corresponding content.");
         }
 
-        long id = gitService.insertGitMultipartFileIntoQueue(file);
+        long id = gitService.insertGitMultipartFileIntoQueue(file, fileName);
 
         return new GitRepositorySavedResponse(id);
     }
