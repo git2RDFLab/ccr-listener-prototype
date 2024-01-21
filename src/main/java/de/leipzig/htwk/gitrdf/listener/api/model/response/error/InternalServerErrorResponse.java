@@ -1,4 +1,4 @@
-package de.leipzig.htwk.gitrdf.listener.api.model.response;
+package de.leipzig.htwk.gitrdf.listener.api.model.response.error;
 
 import lombok.Value;
 

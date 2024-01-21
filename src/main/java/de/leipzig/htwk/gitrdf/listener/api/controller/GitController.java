@@ -1,10 +1,12 @@
 package de.leipzig.htwk.gitrdf.listener.api.controller;
 
+import de.leipzig.htwk.gitrdf.listener.api.exception.BadRequestException;
 import de.leipzig.htwk.gitrdf.listener.api.model.response.GitRepositoryOrderResponse;
 import de.leipzig.htwk.gitrdf.listener.api.model.response.GitRepositorySavedResponse;
 import de.leipzig.htwk.gitrdf.listener.database.entity.GitRepositoryOrderEntity;
 import de.leipzig.htwk.gitrdf.listener.service.GitService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,19 +38,22 @@ public class GitController {
             @RequestParam("file") MultipartFile file, @RequestParam("name") String fileName) throws IOException {
 
         if (file.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No file was given.");
+            throw BadRequestException.noMultiPartFileWasGiven();
         }
 
-        if (!file.getContentType().equals("application/zip")) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unsupported content type given for file.");
+        if (StringUtils.isBlank(fileName)) {
+            throw BadRequestException.noFileNameWasGiven();
+        }
+
+        String expectedContentType = "application/zip";
+        if (!file.getContentType().equals(expectedContentType)) {
+            throw BadRequestException.unsupportedContentType(expectedContentType);
         }
 
         boolean isValidDotGitZip = multipartFileIsZipFileAndOnlyContainsDotGitFolderStructure(file);
 
         if (!isValidDotGitZip) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    "Invalid zip file. The zip file should only contain the .git directory and its corresponding content.");
+            throw BadRequestException.invalidZipFile();
         }
 
         long id = gitService.insertGitMultipartFileIntoQueue(file, fileName);
