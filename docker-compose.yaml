@@ -5,7 +5,7 @@ services:
     image: postgres:15.5
     environment:
       POSTGRES_USER: root
-      POSTGRES_PASSWORD: example
+      POSTGRES_PASSWORD: example # temporary for prototyping
       POSTGRES_DB: gitrdfdb
     ports:
       - "5432:5432"
