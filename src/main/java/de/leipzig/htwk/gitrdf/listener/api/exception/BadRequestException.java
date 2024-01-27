@@ -49,6 +49,17 @@ public class BadRequestException extends RuntimeException {
         return new BadRequestException(message, status, reason, solution);
     }
 
+    public static BadRequestException invalidId(String idString) {
+
+        String status = "Bad Request";
+        String reason = String.format("Invalid id '%s' was given", idString);
+        String solution = "Provide a valid id. Example id: 55";
+
+        String message = String.format("Status: %s, Reason: %s, Solution: %s", status, reason, solution);
+
+        return new BadRequestException(message, status, reason, solution);
+    }
+
     private final String status;
     private final String reason;
     private final String solution;
