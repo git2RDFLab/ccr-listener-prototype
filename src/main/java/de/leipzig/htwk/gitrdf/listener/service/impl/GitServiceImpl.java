@@ -8,7 +8,6 @@ import jakarta.persistence.EntityManager;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -34,7 +33,10 @@ public class GitServiceImpl implements GitService {
 
     @Override
     @Transactional
-    public long insertGitMultipartFileIntoQueue(MultipartFile file, String fileName) throws IOException {
+    public long insertGitMultipartFileIntoQueue(
+            InputStream fileInputStream,
+            long byteLengthOfFile,
+            String fileName) throws IOException {
 
         GitRepositoryOrderEntity gitRepositoryOrderEntity = GitRepositoryOrderEntity.newOrder(fileName);
         entityManager.persist(gitRepositoryOrderEntity);
@@ -43,12 +45,17 @@ public class GitServiceImpl implements GitService {
         gitRepositoryOrderEntityLobs.setOrderEntity(gitRepositoryOrderEntity);
         gitRepositoryOrderEntityLobs.setRdfFile(null);
 
+        gitRepositoryOrderEntityLobs.setGitZipFile(BlobProxy.generateProxy(fileInputStream, byteLengthOfFile));
+
         //try (InputStream zipStream = file.getInputStream()) {
             //gitRepositoryOrderEntityLobs.setGitZipFile(BlobProxy.generateProxy(zipStream, file.getSize()));
         //}
 
-        // TODO (ccr): Optimizable?
-        gitRepositoryOrderEntityLobs.setGitZipFile(BlobProxy.generateProxy(file.getBytes()));
+        //try (InputStream inputStream = new BufferedInputStream(file.getInputStream())) {
+            //gitRepositoryOrderEntityLobs.setGitZipFile(BlobProxy.generateProxy(inputStream, file.getSize()));
+        //}
+
+        //gitRepositoryOrderEntityLobs.setGitZipFile(BlobProxy.generateProxy(file.getBytes()));
 
         entityManager.persist(gitRepositoryOrderEntityLobs);
 

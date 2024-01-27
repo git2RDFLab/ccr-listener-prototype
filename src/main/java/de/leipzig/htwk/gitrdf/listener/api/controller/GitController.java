@@ -17,10 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -62,7 +59,10 @@ public class GitController {
             throw BadRequestException.invalidZipFile();
         }
 
-        long id = gitService.insertGitMultipartFileIntoQueue(file, fileName);
+        Long id = null;
+        try (InputStream inputStream = new BufferedInputStream(file.getInputStream())) {
+            id = gitService.insertGitMultipartFileIntoQueue(inputStream, file.getSize(), fileName);
+        }
 
         return new GitRepositorySavedResponse(id);
     }
