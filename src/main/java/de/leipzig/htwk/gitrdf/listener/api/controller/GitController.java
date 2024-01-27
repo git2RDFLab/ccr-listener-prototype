@@ -11,7 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -78,6 +80,15 @@ public class GitController {
         httpServletResponse.setHeader("Content-Disposition", "attachment; filename=\"rdf.ttl\"");
 
         return responseResource;
+    }
+
+    @DeleteMapping(path = "/api/v1/git/rdf/completedelete/{id}")
+    public ResponseEntity<Void> deleteGitAndRdf(@PathVariable("id") String id) {
+
+        long longId = convertStringToLongIdOrThrowException(id);
+        gitService.completeDelete(longId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     private boolean multipartFileIsZipFileAndOnlyContainsDotGitFolderStructure(MultipartFile file) throws IOException {

@@ -28,5 +28,6 @@ public interface GitService {
 
     File getTempRdfFile(long id) throws SQLException, IOException;
 
+    void completeDelete(long id);
 
 }

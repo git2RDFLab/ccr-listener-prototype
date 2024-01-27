@@ -70,4 +70,18 @@ public class GitServiceImpl implements GitService {
 
         return tempFile;
     }
+
+    @Override
+    @Transactional
+    public void completeDelete(long id) {
+
+        GitRepositoryOrderEntity gitRepositoryOrderEntity
+                = entityManager.find(GitRepositoryOrderEntity.class, id);
+
+        GitRepositoryOrderEntityLobs gitRepositoryOrderEntityLobs
+                = entityManager.find(GitRepositoryOrderEntityLobs.class, id);
+
+        entityManager.remove(gitRepositoryOrderEntityLobs);
+        entityManager.remove(gitRepositoryOrderEntity);
+    }
 }
