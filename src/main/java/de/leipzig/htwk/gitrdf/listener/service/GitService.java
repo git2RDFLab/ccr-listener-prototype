@@ -3,7 +3,9 @@ package de.leipzig.htwk.gitrdf.listener.service;
 import de.leipzig.htwk.gitrdf.listener.database.entity.GitRepositoryOrderEntity;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public interface GitService {
@@ -24,6 +26,7 @@ public interface GitService {
      */
     long insertGitMultipartFileIntoQueue(MultipartFile file, String fileName) throws IOException;
 
+    File getTempRdfFile(long id) throws SQLException, IOException;
 
 
 }

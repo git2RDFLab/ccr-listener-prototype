@@ -10,8 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.file.Files;
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -46,10 +47,27 @@ public class GitServiceImpl implements GitService {
             //gitRepositoryOrderEntityLobs.setGitZipFile(BlobProxy.generateProxy(zipStream, file.getSize()));
         //}
 
+        // TODO (ccr): Optimizable?
         gitRepositoryOrderEntityLobs.setGitZipFile(BlobProxy.generateProxy(file.getBytes()));
 
         entityManager.persist(gitRepositoryOrderEntityLobs);
 
         return gitRepositoryOrderEntity.getId();
+    }
+
+    @Override
+    @Transactional
+    public File getTempRdfFile(long id) throws SQLException, IOException {
+        GitRepositoryOrderEntityLobs lob = entityManager.find(GitRepositoryOrderEntityLobs.class, id);
+
+        File tempFile = Files.createTempFile("RdfFileData", ".ttl").toFile();
+
+        try (InputStream binaryInputStream = lob.getRdfFile().getBinaryStream()) {
+            try (OutputStream fileOutputStream = new BufferedOutputStream(new FileOutputStream(tempFile))) {
+                binaryInputStream.transferTo(fileOutputStream);
+            }
+        }
+
+        return tempFile;
     }
 }

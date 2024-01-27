@@ -5,23 +5,28 @@ import de.leipzig.htwk.gitrdf.listener.api.model.response.GitRepositoryOrderResp
 import de.leipzig.htwk.gitrdf.listener.api.model.response.GitRepositorySavedResponse;
 import de.leipzig.htwk.gitrdf.listener.database.entity.GitRepositoryOrderEntity;
 import de.leipzig.htwk.gitrdf.listener.service.GitService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class GitController {
 
     private final GitService gitService;
@@ -58,6 +63,21 @@ public class GitController {
         long id = gitService.insertGitMultipartFileIntoQueue(file, fileName);
 
         return new GitRepositorySavedResponse(id);
+    }
+
+    //@GetMapping(path = "/api/v1/git/rdf/download/{id}", produces = "text/ttl; charset=utf-8")
+    @GetMapping(path = "/api/v1/git/rdf/download/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public @ResponseBody Resource downloadRdf(@PathVariable("id") String id, HttpServletResponse httpServletResponse) throws SQLException, IOException {
+
+        long longId = convertStringToLongIdOrThrowException(id);
+
+        File tempRdfFile = gitService.getTempRdfFile(longId);
+
+        Resource responseResource = new InputStreamResource(new BufferedInputStream(new FileInputStream(tempRdfFile)));
+
+        httpServletResponse.setHeader("Content-Disposition", "attachment; filename=\"rdf.ttl\"");
+
+        return responseResource;
     }
 
     private boolean multipartFileIsZipFileAndOnlyContainsDotGitFolderStructure(MultipartFile file) throws IOException {
@@ -98,6 +118,18 @@ public class GitController {
 
     private String removeTrailingSlash(String value) {
         return value.substring(0, value.length() - 1);
+    }
+
+    private long convertStringToLongIdOrThrowException(String longId) {
+
+        long id;
+
+        try {
+            return Long.parseLong(longId, 10);
+        } catch (NumberFormatException ex) {
+            log.info("Couldn't convert string to long id. Exception is '{}'", ex, ex);
+            throw BadRequestException.invalidId(longId);
+        }
     }
 
 }
