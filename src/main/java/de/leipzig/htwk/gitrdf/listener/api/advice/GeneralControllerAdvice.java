@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 @ControllerAdvice
 @Slf4j
@@ -28,6 +29,16 @@ public class GeneralControllerAdvice {
     public ResponseEntity<InternalServerErrorResponse> handleIOException(IOException ex) {
 
         log.info("IOException during request handling.", ex);
+
+        return new ResponseEntity<>(
+                InternalServerErrorResponse.unexpectedException(),
+                HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(value = SQLException.class)
+    public ResponseEntity<InternalServerErrorResponse> handleSqlException(SQLException ex) {
+
+        log.info("SqlException during request handling.", ex);
 
         return new ResponseEntity<>(
                 InternalServerErrorResponse.unexpectedException(),
