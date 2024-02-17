@@ -60,6 +60,26 @@ public class BadRequestException extends RuntimeException {
         return new BadRequestException(message, status, reason, solution);
     }
 
+    public static BadRequestException noOwnerSpecified() {
+        String status = "Bad Request";
+        String reason = "No owner was specified";
+        String solution = "Specify an owner. For example: 'dotnet' (who is the owner for example of the repo 'core')";
+
+        String message = String.format("Status: %s, Reason: %s, Solution: %s", status, reason, solution);
+
+        return new BadRequestException(message, status, reason, solution);
+    }
+
+    public static BadRequestException noRepositorySpecified() {
+        String status = "Bad Request";
+        String reason = "No repository was specified";
+        String solution = "Specify a repository. For example: 'core' (the owner 'dotnet' provides for example a 'core' repository)";
+
+        String message = String.format("Status: %s, Reason: %s, Solution: %s", status, reason, solution);
+
+        return new BadRequestException(message, status, reason, solution);
+    }
+
     private final String status;
     private final String reason;
     private final String solution;

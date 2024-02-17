@@ -10,3 +10,13 @@ curl -XPOST -F "file=@gitexample.zip;filename=gitexample.zip;type=application/zi
 
 ### CURL-Example to delete .git repo + all connected resources
 curl -XDELETE localhost:8080/api/v1/git/rdf/completedelete/{id}
+
+
+## CURL-Example to list all github repositories in queue
+curl -XGET localhost:8080/api/v1/github
+
+## CURL-Example to insert github repository into queue
+curl -XPOST -H "Content-type: application/json" -d '{"owner": "dotnet", "repository": "core"}' localhost:8080/api/v1/github/queue
+
+## CURL-Example to delete github repository complete from queue
+curl -XDELETE localhost:8080/api/v1/github/rdf/completedelete/{id}

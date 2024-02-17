@@ -5,6 +5,7 @@ import de.leipzig.htwk.gitrdf.listener.api.model.response.GitRepositoryOrderResp
 import de.leipzig.htwk.gitrdf.listener.api.model.response.GitRepositorySavedResponse;
 import de.leipzig.htwk.gitrdf.listener.database.entity.GitRepositoryOrderEntity;
 import de.leipzig.htwk.gitrdf.listener.service.GitService;
+import de.leipzig.htwk.gitrdf.listener.utils.LongUtils;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -71,7 +72,7 @@ public class GitController {
     @GetMapping(path = "/api/v1/git/rdf/download/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public @ResponseBody Resource downloadRdf(@PathVariable("id") String id, HttpServletResponse httpServletResponse) throws SQLException, IOException {
 
-        long longId = convertStringToLongIdOrThrowException(id);
+        long longId = LongUtils.convertStringToLongIdOrThrowException(id);
 
         File tempRdfFile = gitService.getTempRdfFile(longId);
 
@@ -85,7 +86,7 @@ public class GitController {
     @DeleteMapping(path = "/api/v1/git/rdf/completedelete/{id}")
     public ResponseEntity<Void> deleteGitAndRdf(@PathVariable("id") String id) {
 
-        long longId = convertStringToLongIdOrThrowException(id);
+        long longId = LongUtils.convertStringToLongIdOrThrowException(id);
         gitService.completeDelete(longId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -129,18 +130,6 @@ public class GitController {
 
     private String removeTrailingSlash(String value) {
         return value.substring(0, value.length() - 1);
-    }
-
-    private long convertStringToLongIdOrThrowException(String longId) {
-
-        long id;
-
-        try {
-            return Long.parseLong(longId, 10);
-        } catch (NumberFormatException ex) {
-            log.info("Couldn't convert string to long id. Exception is '{}'", ex, ex);
-            throw BadRequestException.invalidId(longId);
-        }
     }
 
 }
