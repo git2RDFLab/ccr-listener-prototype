@@ -74,14 +74,14 @@ public class GithubServiceImpl implements GithubService {
     @Override
     public void completeDelete(long id) {
 
-        GithubRepositoryOrderEntity githubRepositoryOrderEntity
-                = entityManager.find(GithubRepositoryOrderEntity.class, id);
-
         GithubRepositoryOrderEntityLobs githubRepositoryOrderEntityLobs
                 = entityManager.find(GithubRepositoryOrderEntityLobs.class, id);
 
-        entityManager.remove(githubRepositoryOrderEntity);
+        GithubRepositoryOrderEntity githubRepositoryOrderEntity
+                = entityManager.find(GithubRepositoryOrderEntity.class, id);
+
         entityManager.remove(githubRepositoryOrderEntityLobs);
+        entityManager.remove(githubRepositoryOrderEntity);
     }
 
 }
