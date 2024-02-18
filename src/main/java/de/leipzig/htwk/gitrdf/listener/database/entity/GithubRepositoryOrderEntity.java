@@ -38,4 +38,8 @@ public class GithubRepositoryOrderEntity {
 
     @Column(nullable = false)
     private int numberOfTries;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "githubrepositoryfilter_id")
+    private GithubRepositoryFilter githubRepositoryFilter;
 }

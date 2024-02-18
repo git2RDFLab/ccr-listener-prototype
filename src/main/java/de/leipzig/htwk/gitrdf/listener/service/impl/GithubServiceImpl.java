@@ -1,6 +1,7 @@
 package de.leipzig.htwk.gitrdf.listener.service.impl;
 
 import de.leipzig.htwk.gitrdf.listener.database.entity.GitRepositoryOrderEntity;
+import de.leipzig.htwk.gitrdf.listener.database.entity.GithubRepositoryFilter;
 import de.leipzig.htwk.gitrdf.listener.database.entity.GithubRepositoryOrderEntity;
 import de.leipzig.htwk.gitrdf.listener.database.entity.lob.GitRepositoryOrderEntityLobs;
 import de.leipzig.htwk.gitrdf.listener.database.entity.lob.GithubRepositoryOrderEntityLobs;
@@ -37,7 +38,12 @@ public class GithubServiceImpl implements GithubService {
 
     @Transactional
     @Override
-    public long insertGithubRepositoryIntoQueue(String owner, String repository) {
+    public long insertGithubRepositoryIntoQueue(
+            String owner,
+            String repository,
+            GithubRepositoryFilter githubRepositoryFilter) {
+
+        // TODO (ccr): handle github repository filter!
 
         GithubRepositoryOrderEntity githubRepositoryOrderEntity
                 = GithubRepositoryOrderEntity.newOrder(owner, repository);

@@ -1,5 +1,6 @@
 package de.leipzig.htwk.gitrdf.listener.service;
 
+import de.leipzig.htwk.gitrdf.listener.database.entity.GithubRepositoryFilter;
 import de.leipzig.htwk.gitrdf.listener.database.entity.GithubRepositoryOrderEntity;
 
 import java.io.File;
@@ -10,7 +11,7 @@ import java.util.List;
 public interface GithubService {
     public List<GithubRepositoryOrderEntity> findAll();
 
-    long insertGithubRepositoryIntoQueue(String owner, String repository);
+    long insertGithubRepositoryIntoQueue(String owner, String repository, GithubRepositoryFilter githubRepositoryFilter);
 
     File getTempRdfFile(long id) throws SQLException, IOException;
 

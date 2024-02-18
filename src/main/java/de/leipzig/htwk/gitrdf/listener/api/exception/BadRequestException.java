@@ -27,6 +27,17 @@ public class BadRequestException extends RuntimeException {
         return new BadRequestException(message, status, reason, solution);
     }
 
+    public static BadRequestException cantDisableAllRepositoryFilterOptions() {
+
+        String status = "Bad Request";
+        String reason = "All repository filter options were disabled";
+        String solution = "Enable at least one repository filter option";
+
+        String message = String.format("Status: %s, Reason: %s, Solution: %s", status, reason, solution);
+
+        return new BadRequestException(message, status, reason, solution);
+    }
+
     public static BadRequestException unsupportedContentType(String supportedContentType) {
 
         String status = "Bad Request";

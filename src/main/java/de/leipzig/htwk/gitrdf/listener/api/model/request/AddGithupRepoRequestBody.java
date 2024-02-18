@@ -1,9 +1,17 @@
 package de.leipzig.htwk.gitrdf.listener.api.model.request;
 
+import lombok.Getter;
 import lombok.Value;
 
-@Value
+@Getter
 public class AddGithupRepoRequestBody {
-    String owner;
-    String repository;
+
+    private final String owner;
+
+    private final String repository;
+
+    public AddGithupRepoRequestBody(String owner, String repository) {
+        this.owner = owner;
+        this.repository = repository;
+    }
 }
