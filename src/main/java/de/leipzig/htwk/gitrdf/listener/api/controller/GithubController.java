@@ -3,10 +3,11 @@ package de.leipzig.htwk.gitrdf.listener.api.controller;
 import de.leipzig.htwk.gitrdf.listener.api.exception.BadRequestException;
 import de.leipzig.htwk.gitrdf.listener.api.model.request.AddGithubRepoFilterRequestBody;
 import de.leipzig.htwk.gitrdf.listener.api.model.request.AddGithupRepoRequestBody;
-import de.leipzig.htwk.gitrdf.listener.api.model.request.composite.filter.RepoFilterRequestModel;
 import de.leipzig.htwk.gitrdf.listener.api.model.response.GithubRepositoryOrderResponse;
 import de.leipzig.htwk.gitrdf.listener.api.model.response.GithubRepositorySavedResponse;
+import de.leipzig.htwk.gitrdf.listener.database.entity.GithubRepositoryFilter;
 import de.leipzig.htwk.gitrdf.listener.database.entity.GithubRepositoryOrderEntity;
+import de.leipzig.htwk.gitrdf.listener.factory.GithubRepositoryFilterFactory;
 import de.leipzig.htwk.gitrdf.listener.service.GithubService;
 import de.leipzig.htwk.gitrdf.listener.utils.LongUtils;
 import jakarta.servlet.http.HttpServletResponse;
@@ -34,6 +35,8 @@ public class GithubController {
 
     private final GithubService githubService;
 
+    private final GithubRepositoryFilterFactory githubRepositoryFilterFactory;
+
     @GetMapping("/api/v1/github")
     public List<GithubRepositoryOrderResponse> getAllGithubRepositoryOrderEntries() {
         List<GithubRepositoryOrderEntity> results = githubService.findAll();
@@ -51,9 +54,10 @@ public class GithubController {
             throw BadRequestException.noRepositorySpecified();
         }
 
-
-
-        long id = githubService.insertGithubRepositoryIntoQueue(requestBody.getOwner(), requestBody.getRepository());
+        long id = githubService.insertGithubRepositoryIntoQueue(
+                requestBody.getOwner(),
+                requestBody.getRepository(),
+                GithubRepositoryFilter.ENABLED);
 
         return new GithubRepositorySavedResponse(id);
     }
@@ -70,12 +74,17 @@ public class GithubController {
             throw BadRequestException.noRepositorySpecified();
         }
 
-        if (requestBody.isRepositoryFilterEmpty() || requestBody.getRepositoryFilter().equals(RepoFilterRequestModel.DISABLED)) {
+        if (requestBody.isRepositoryFilterEmpty() || requestBody.getRepositoryFilter().areAllFilterOptionsDisabled()) {
             throw BadRequestException.cantDisableAllRepositoryFilterOptions();
         }
 
-        long id =
+        GithubRepositoryFilter githubRepositoryFilter
+                = githubRepositoryFilterFactory.fromRepoFilterRequestModel(requestBody.getRepositoryFilter());
 
+        long id = githubService.insertGithubRepositoryIntoQueue(
+                requestBody.getOwner(), requestBody.getRepository(), githubRepositoryFilter);
+
+        return new GithubRepositorySavedResponse(id);
     }
 
     @GetMapping(path = "/api/v1/github/rdf/download/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)

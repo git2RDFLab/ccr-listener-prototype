@@ -20,7 +20,7 @@ public class RepoFilterRequestModel {
     }
 
     public boolean areAllFilterOptionsDisabled() {
-        return
+        return gitCommitFilter.areAllFilterOptionsDisabled();
     }
 
     public GitCommitFilterRequestModel getGitCommitFilter() {

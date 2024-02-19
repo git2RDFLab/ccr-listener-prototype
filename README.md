@@ -18,5 +18,8 @@ curl -XGET localhost:8080/api/v1/github
 ## CURL-Example to insert github repository into queue
 curl -XPOST -H "Content-type: application/json" -d '{"owner": "dotnet", "repository": "core"}' localhost:8080/api/v1/github/queue
 
+## CURL-Example to insert github repository into queue with filter
+curl -XPOST -H "Content-type: application/json" -d '{"owner": "dotnet", "repository": "core", "repositoryFilter": {"gitCommitFilter": {"enableAuthorName": true}}}' localhost:8080/api/v1/github/queue/filter
+
 ## CURL-Example to delete github repository complete from queue
 curl -XDELETE localhost:8080/api/v1/github/rdf/completedelete/{id}

@@ -43,10 +43,8 @@ public class GithubServiceImpl implements GithubService {
             String repository,
             GithubRepositoryFilter githubRepositoryFilter) {
 
-        // TODO (ccr): handle github repository filter!
-
         GithubRepositoryOrderEntity githubRepositoryOrderEntity
-                = GithubRepositoryOrderEntity.newOrder(owner, repository);
+                = GithubRepositoryOrderEntity.newOrder(owner, repository, githubRepositoryFilter);
 
         entityManager.persist(githubRepositoryOrderEntity);
 

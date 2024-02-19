@@ -15,8 +15,7 @@ public class GithubRepositoryFilterFactory {
             return GithubRepositoryFilter.ENABLED;
         }
 
-
-
+        return convertFromNonNullRepoFilterRequestModel(repoFilterRequestModel);
     }
 
     private GithubRepositoryFilter convertFromNonNullRepoFilterRequestModel(

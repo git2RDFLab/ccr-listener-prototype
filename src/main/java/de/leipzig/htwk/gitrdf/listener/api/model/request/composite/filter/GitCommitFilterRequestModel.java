@@ -74,7 +74,14 @@ public class GitCommitFilterRequestModel {
     }
 
     public boolean areAllFilterOptionsDisabled() {
-        // TODO (ccr): Continue here - 18.02.2024 - 20:22
+        return !isCommitHashEnabled()
+                && !isAuthorNameEnabled()
+                && !isAuthorEmailEnabled()
+                && !isAuthorDateEnabled()
+                && !isCommitDateEnabled()
+                && !isCommitterNameEnabled()
+                && !isCommitterEmailEnabled()
+                && !isCommitMessageEnabled();
     }
 
     public Boolean isCommitHashEnabled() {
