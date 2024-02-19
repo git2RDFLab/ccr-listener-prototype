@@ -4,6 +4,8 @@ import lombok.EqualsAndHashCode;
 
 import java.beans.ConstructorProperties;
 
+import static de.leipzig.htwk.gitrdf.listener.api.model.request.composite.filter.RepoFilterRequestModel.returnValueOrFalseIfNull;
+
 @EqualsAndHashCode
 public class GitCommitFilterRequestModel {
 
@@ -114,9 +116,5 @@ public class GitCommitFilterRequestModel {
 
     public Boolean isCommitMessageEnabled() {
         return returnValueOrFalseIfNull(enableCommitMessage);
-    }
-
-    private boolean returnValueOrFalseIfNull(Boolean value) {
-        return value == null ? false : value;
     }
 }

@@ -30,7 +30,7 @@ public class BadRequestException extends RuntimeException {
     public static BadRequestException cantDisableAllRepositoryFilterOptions() {
 
         String status = "Bad Request";
-        String reason = "All repository filter options were disabled";
+        String reason = "All repository filter options are disabled";
         String solution = "Enable at least one repository filter option";
 
         String message = String.format("Status: %s, Reason: %s, Solution: %s", status, reason, solution);
