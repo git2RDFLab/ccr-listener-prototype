@@ -1,9 +1,8 @@
 package de.leipzig.htwk.gitrdf.listener.service.impl;
 
-import de.leipzig.htwk.gitrdf.listener.database.entity.GitRepositoryOrderEntity;
 import de.leipzig.htwk.gitrdf.listener.database.entity.GithubRepositoryFilter;
 import de.leipzig.htwk.gitrdf.listener.database.entity.GithubRepositoryOrderEntity;
-import de.leipzig.htwk.gitrdf.listener.database.entity.lob.GitRepositoryOrderEntityLobs;
+import de.leipzig.htwk.gitrdf.listener.database.entity.enums.GitRepositoryOrderStatus;
 import de.leipzig.htwk.gitrdf.listener.database.entity.lob.GithubRepositoryOrderEntityLobs;
 import de.leipzig.htwk.gitrdf.listener.database.repository.GithubRepositoryOrderRepository;
 import de.leipzig.htwk.gitrdf.listener.service.GithubService;
@@ -55,6 +54,16 @@ public class GithubServiceImpl implements GithubService {
         entityManager.persist(githubRepositoryOrderEntityLobs);
 
         return githubRepositoryOrderEntity.getId();
+    }
+
+    @Transactional
+    @Override
+    public boolean isRdfFileAvailable(long id) {
+
+        GithubRepositoryOrderEntity githubRepositoryOrderEntity
+                = entityManager.find(GithubRepositoryOrderEntity.class, id);
+
+        return githubRepositoryOrderEntity.getStatus().equals(GitRepositoryOrderStatus.DONE);
     }
 
     @Transactional

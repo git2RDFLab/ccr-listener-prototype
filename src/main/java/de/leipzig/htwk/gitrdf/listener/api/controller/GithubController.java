@@ -92,6 +92,10 @@ public class GithubController {
 
         long longId = LongUtils.convertStringToLongIdOrThrowException(id);
 
+        if (!githubService.isRdfFileAvailable(longId)) {
+            throw BadRequestException.noRdfFileAvailableYet();
+        }
+
         File tempRdfFile = githubService.getTempRdfFile(longId);
 
         Resource responseResource = new InputStreamResource(new BufferedInputStream(new FileInputStream(tempRdfFile)));

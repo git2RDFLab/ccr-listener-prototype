@@ -13,6 +13,8 @@ public interface GithubService {
 
     long insertGithubRepositoryIntoQueue(String owner, String repository, GithubRepositoryFilter githubRepositoryFilter);
 
+    boolean isRdfFileAvailable(long id);
+
     File getTempRdfFile(long id) throws SQLException, IOException;
 
     void completeDelete(long id);

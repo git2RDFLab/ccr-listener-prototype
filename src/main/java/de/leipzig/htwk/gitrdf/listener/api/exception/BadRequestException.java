@@ -91,6 +91,17 @@ public class BadRequestException extends RuntimeException {
         return new BadRequestException(message, status, reason, solution);
     }
 
+    public static BadRequestException noRdfFileAvailableYet() {
+
+        String status = "Bad Request";
+        String reason = "Specified repository was not yet processed and therefore also doesnt contain a rdf file to download";
+        String solution = "Wait until the repository was successfully processed (ie. status of repository is 'DONE')";
+
+        String message = String.format("Status: %s, Reason: %s, Solution: %s", status, reason, solution);
+
+        return new BadRequestException(message, status, reason, solution);
+    }
+
     private final String status;
     private final String reason;
     private final String solution;
