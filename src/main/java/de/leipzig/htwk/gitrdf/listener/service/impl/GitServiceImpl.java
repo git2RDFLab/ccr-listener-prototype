@@ -1,8 +1,8 @@
 package de.leipzig.htwk.gitrdf.listener.service.impl;
 
-import de.leipzig.htwk.gitrdf.listener.database.entity.GitRepositoryOrderEntity;
-import de.leipzig.htwk.gitrdf.listener.database.entity.lob.GitRepositoryOrderEntityLobs;
-import de.leipzig.htwk.gitrdf.listener.database.repository.GitRepositoryOrderRepository;
+import de.leipzig.htwk.gitrdf.database.common.entity.GitRepositoryOrderEntity;
+import de.leipzig.htwk.gitrdf.database.common.entity.lob.GitRepositoryOrderEntityLobs;
+import de.leipzig.htwk.gitrdf.database.common.repository.GitRepositoryOrderRepository;
 import de.leipzig.htwk.gitrdf.listener.service.GitService;
 import jakarta.persistence.EntityManager;
 import org.hibernate.engine.jdbc.BlobProxy;

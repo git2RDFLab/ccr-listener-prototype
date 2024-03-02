@@ -1,12 +1,12 @@
 package de.leipzig.htwk.gitrdf.listener.api.controller;
 
+import de.leipzig.htwk.gitrdf.database.common.entity.GithubRepositoryFilter;
+import de.leipzig.htwk.gitrdf.database.common.entity.GithubRepositoryOrderEntity;
 import de.leipzig.htwk.gitrdf.listener.api.exception.BadRequestException;
 import de.leipzig.htwk.gitrdf.listener.api.model.request.AddGithubRepoFilterRequestBody;
 import de.leipzig.htwk.gitrdf.listener.api.model.request.AddGithupRepoRequestBody;
 import de.leipzig.htwk.gitrdf.listener.api.model.response.GithubRepositoryOrderResponse;
 import de.leipzig.htwk.gitrdf.listener.api.model.response.GithubRepositorySavedResponse;
-import de.leipzig.htwk.gitrdf.listener.database.entity.GithubRepositoryFilter;
-import de.leipzig.htwk.gitrdf.listener.database.entity.GithubRepositoryOrderEntity;
 import de.leipzig.htwk.gitrdf.listener.factory.GithubRepositoryFilterFactory;
 import de.leipzig.htwk.gitrdf.listener.service.GithubService;
 import de.leipzig.htwk.gitrdf.listener.utils.LongUtils;

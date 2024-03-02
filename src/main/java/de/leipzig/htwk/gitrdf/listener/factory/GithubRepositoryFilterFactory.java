@@ -1,11 +1,11 @@
 package de.leipzig.htwk.gitrdf.listener.factory;
 
+import de.leipzig.htwk.gitrdf.database.common.entity.GitCommitRepositoryFilter;
+import de.leipzig.htwk.gitrdf.database.common.entity.GithubIssueRepositoryFilter;
+import de.leipzig.htwk.gitrdf.database.common.entity.GithubRepositoryFilter;
 import de.leipzig.htwk.gitrdf.listener.api.model.request.composite.filter.GitCommitFilterRequestModel;
 import de.leipzig.htwk.gitrdf.listener.api.model.request.composite.filter.GithubIssueFilterRequestModel;
 import de.leipzig.htwk.gitrdf.listener.api.model.request.composite.filter.RepoFilterRequestModel;
-import de.leipzig.htwk.gitrdf.listener.database.entity.GitCommitRepositoryFilter;
-import de.leipzig.htwk.gitrdf.listener.database.entity.GithubIssueRepositoryFilter;
-import de.leipzig.htwk.gitrdf.listener.database.entity.GithubRepositoryFilter;
 import org.springframework.stereotype.Component;
 
 @Component

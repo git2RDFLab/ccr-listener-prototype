@@ -1,7 +1,7 @@
 package de.leipzig.htwk.gitrdf.listener.api.model.response;
 
-import de.leipzig.htwk.gitrdf.listener.database.entity.GitRepositoryOrderEntity;
-import de.leipzig.htwk.gitrdf.listener.database.entity.enums.GitRepositoryOrderStatus;
+import de.leipzig.htwk.gitrdf.database.common.entity.GitRepositoryOrderEntity;
+import de.leipzig.htwk.gitrdf.database.common.entity.enums.GitRepositoryOrderStatus;
 import lombok.Value;
 
 import java.util.List;

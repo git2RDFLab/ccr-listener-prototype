@@ -1,9 +1,9 @@
 package de.leipzig.htwk.gitrdf.listener.api.controller;
 
+import de.leipzig.htwk.gitrdf.database.common.entity.GitRepositoryOrderEntity;
 import de.leipzig.htwk.gitrdf.listener.api.exception.BadRequestException;
 import de.leipzig.htwk.gitrdf.listener.api.model.response.GitRepositoryOrderResponse;
 import de.leipzig.htwk.gitrdf.listener.api.model.response.GitRepositorySavedResponse;
-import de.leipzig.htwk.gitrdf.listener.database.entity.GitRepositoryOrderEntity;
 import de.leipzig.htwk.gitrdf.listener.service.GitService;
 import de.leipzig.htwk.gitrdf.listener.utils.LongUtils;
 import jakarta.servlet.http.HttpServletResponse;

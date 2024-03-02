@@ -1,7 +1,7 @@
 package de.leipzig.htwk.gitrdf.listener.service;
 
-import de.leipzig.htwk.gitrdf.listener.database.entity.GithubRepositoryFilter;
-import de.leipzig.htwk.gitrdf.listener.database.entity.GithubRepositoryOrderEntity;
+import de.leipzig.htwk.gitrdf.database.common.entity.GithubRepositoryFilter;
+import de.leipzig.htwk.gitrdf.database.common.entity.GithubRepositoryOrderEntity;
 
 import java.io.File;
 import java.io.IOException;

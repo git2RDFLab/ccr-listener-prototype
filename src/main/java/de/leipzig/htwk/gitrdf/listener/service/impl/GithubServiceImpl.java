@@ -1,10 +1,10 @@
 package de.leipzig.htwk.gitrdf.listener.service.impl;
 
-import de.leipzig.htwk.gitrdf.listener.database.entity.GithubRepositoryFilter;
-import de.leipzig.htwk.gitrdf.listener.database.entity.GithubRepositoryOrderEntity;
-import de.leipzig.htwk.gitrdf.listener.database.entity.enums.GitRepositoryOrderStatus;
-import de.leipzig.htwk.gitrdf.listener.database.entity.lob.GithubRepositoryOrderEntityLobs;
-import de.leipzig.htwk.gitrdf.listener.database.repository.GithubRepositoryOrderRepository;
+import de.leipzig.htwk.gitrdf.database.common.entity.GithubRepositoryFilter;
+import de.leipzig.htwk.gitrdf.database.common.entity.GithubRepositoryOrderEntity;
+import de.leipzig.htwk.gitrdf.database.common.entity.enums.GitRepositoryOrderStatus;
+import de.leipzig.htwk.gitrdf.database.common.entity.lob.GithubRepositoryOrderEntityLobs;
+import de.leipzig.htwk.gitrdf.database.common.repository.GithubRepositoryOrderRepository;
 import de.leipzig.htwk.gitrdf.listener.service.GithubService;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Service;
