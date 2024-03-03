@@ -24,10 +24,10 @@ The database shared common dependency is already included in this project as a d
 
 ## Environment Variables
 
-| Environment Variables      | Description                                                                                                                                                                                                                            |
-|----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| SPRING_DATASOURCE_URL      | The fully qualified url to the database. Expects the database connection string as of the defined schema by the used database.  This projects expects per default a postgres database. A default value is given for local deployments. |
-| SPRING_DATASOURCE_PASSWORD | The password of the database. A default value is given for local deployments.                                                                                                                                                          |
+| Environment Variables      | Description                                                                                                                                                                                                                           |
+|----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| SPRING_DATASOURCE_URL      | The fully qualified url to the database. Expects the database connection string as of the defined schema by the used database. This projects expects per default a postgres database. A default value is given for local deployments. |
+| SPRING_DATASOURCE_PASSWORD | The password of the database. A default value is given for local deployments.                                                                                                                                                         |
 
 ### CURL-Example to upload file
 curl -XPOST -F "file=@gitexample.zip;name=field1;filename=gitexample.zip;type=application/zip" localhost:8080/api/v1/git/upload
