@@ -41,7 +41,10 @@ public class GithubRepositoryFilterFactory {
                 model.isCommitDateEnabled(),
                 model.isCommitterNameEnabled(),
                 model.isCommitterEmailEnabled(),
-                model.isCommitMessageEnabled());
+                model.isCommitMessageEnabled(),
+                model.isCommitDiffEnabled(),
+                model.isCommitBranchEnabled(),
+                model.isCommitTagEnabled());
     }
 
     private GithubIssueRepositoryFilter convertFromGithubIssueFilterRequestModel(GithubIssueFilterRequestModel model) {

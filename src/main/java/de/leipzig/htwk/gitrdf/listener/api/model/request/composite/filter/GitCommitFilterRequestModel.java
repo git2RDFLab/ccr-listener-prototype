@@ -17,9 +17,15 @@ public class GitCommitFilterRequestModel {
             true,
             true,
             true,
+            true,
+            true,
+            true,
             true);
 
     public static final GitCommitFilterRequestModel DISABLED = new GitCommitFilterRequestModel(
+            false,
+            false,
+            false,
             false,
             false,
             false,
@@ -45,6 +51,12 @@ public class GitCommitFilterRequestModel {
 
     private final Boolean enableCommitMessage;
 
+    private final Boolean enableCommitDiff;
+
+    private final Boolean enableCommitBranch;
+
+    private final Boolean enableCommitTag;
+
 
     @ConstructorProperties({
             "enableCommitHash",
@@ -54,7 +66,10 @@ public class GitCommitFilterRequestModel {
             "enableCommitDate",
             "enableCommitterName",
             "enableCommitterEmail",
-            "enableCommitMessage"})
+            "enableCommitMessage",
+            "enableCommitDiff",
+            "enableCommitBranch",
+            "enableCommitTag"})
     public GitCommitFilterRequestModel(
             Boolean enableCommitHash,
             Boolean enableAuthorName,
@@ -63,7 +78,10 @@ public class GitCommitFilterRequestModel {
             Boolean enableCommitDate,
             Boolean enableCommitterName,
             Boolean enableCommitterEmail,
-            Boolean enableCommitMessage) {
+            Boolean enableCommitMessage,
+            Boolean enableCommitDiff,
+            Boolean enableCommitBranch,
+            Boolean enableCommitTag) {
 
         this.enableCommitHash = enableCommitHash;
         this.enableAuthorName = enableAuthorName;
@@ -73,6 +91,9 @@ public class GitCommitFilterRequestModel {
         this.enableCommitterName = enableCommitterName;
         this.enableCommitterEmail = enableCommitterEmail;
         this.enableCommitMessage = enableCommitMessage;
+        this.enableCommitDiff = enableCommitDiff;
+        this.enableCommitBranch = enableCommitBranch;
+        this.enableCommitTag = enableCommitTag;
     }
 
     public boolean areAllFilterOptionsDisabled() {
@@ -83,7 +104,10 @@ public class GitCommitFilterRequestModel {
                 && !isCommitDateEnabled()
                 && !isCommitterNameEnabled()
                 && !isCommitterEmailEnabled()
-                && !isCommitMessageEnabled();
+                && !isCommitMessageEnabled()
+                && !isCommitDiffEnabled()
+                && !isCommitBranchEnabled()
+                && !isCommitTagEnabled();
     }
 
     public Boolean isCommitHashEnabled() {
@@ -114,7 +138,9 @@ public class GitCommitFilterRequestModel {
         return returnValueOrFalseIfNull(enableCommitterEmail);
     }
 
-    public Boolean isCommitMessageEnabled() {
-        return returnValueOrFalseIfNull(enableCommitMessage);
-    }
+    public Boolean isCommitMessageEnabled() { return returnValueOrFalseIfNull(enableCommitMessage); }
+
+    public Boolean isCommitDiffEnabled() { return returnValueOrFalseIfNull(enableCommitDiff); }
+    public Boolean isCommitBranchEnabled() { return returnValueOrFalseIfNull(enableCommitBranch); }
+    public Boolean isCommitTagEnabled() { return returnValueOrFalseIfNull(enableCommitTag); }
 }

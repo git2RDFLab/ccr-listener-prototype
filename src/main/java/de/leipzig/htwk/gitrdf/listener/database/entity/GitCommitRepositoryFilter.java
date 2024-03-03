@@ -18,10 +18,16 @@ public class GitCommitRepositoryFilter {
             true,
             true,
             true,
-            true ,
+            true,
+            true,
+            true,
+            true,
             true);
 
     public static final GitCommitRepositoryFilter DISABLED = new GitCommitRepositoryFilter(
+            false,
+            false,
+            false,
             false,
             false,
             false,
@@ -50,4 +56,11 @@ public class GitCommitRepositoryFilter {
     private boolean enableCommitterEmail;
 
     private boolean enableCommitMessage;
+
+
+    private boolean enableCommitDiff;
+
+    private boolean enableCommitBranch;
+
+    private boolean enableCommitTag;
 }
