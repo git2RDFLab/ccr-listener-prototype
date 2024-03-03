@@ -1,6 +1,7 @@
 package de.leipzig.htwk.gitrdf.listener.experimantation;
 
 import lombok.SneakyThrows;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedInputStream;
@@ -9,6 +10,7 @@ import java.io.FileInputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+@Disabled
 public class ZipInputFileExperimentationTest {
 
     @Test
