@@ -22,6 +22,13 @@ The database shared common dependency is already included in this project as a d
 </dependency>
 ```
 
+## Environment Variables
+
+| Environment Variables      | Description                                                                                                                                                                            |
+|----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| SPRING_DATASOURCE_URL      | The fully qualified url to the database. Expects the database connection string as of the defined schema by the used database.  This projects expects per default a postgres database. |
+| SPRING_DATASOURCE_PASSWORD | The password of the database.                                                                                                                                                          |
+
 ### CURL-Example to upload file
 curl -XPOST -F "file=@gitexample.zip;name=field1;filename=gitexample.zip;type=application/zip" localhost:8080/api/v1/git/upload
 
@@ -42,3 +49,4 @@ curl -XPOST -H "Content-type: application/json" -d '{"owner": "dotnet", "reposit
 
 ## CURL-Example to delete github repository complete from queue
 curl -XDELETE localhost:8080/api/v1/github/rdf/completedelete/{id}
+
