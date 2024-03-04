@@ -34,24 +34,30 @@ The database shared common dependency is already included in this project as a d
 curl -XPOST -F "file=@gitexample.zip;name=field1;filename=gitexample.zip;type=application/zip" localhost:8080/api/v1/git/upload
 ```
 
+Endpoint: `/api/v1/git/upload?name=abc`
 ```
 curl -XPOST -F "file=@gitexample.zip;filename=gitexample.zip;type=application/zip" localhost:8080/api/v1/git/upload?name=abc
 ```
 
 ### CURL-Example to delete .git repo + all connected resources
+Endpoint: `/api/v1/git/rdf/completedelete/{id}`
 ```
 curl -XDELETE localhost:8080/api/v1/git/rdf/completedelete/{id}
 ```
 
 ## CURL-Example to list all github repositories in queue
+Endpoint: `/api/v1/github`
 ```
 curl -XGET localhost:8080/api/v1/github
 ```
 ## CURL-Example to insert github repository into queue
+Endpoint: `/api/v1/github/queue`
 ```
 curl -XPOST -H "Content-type: application/json" -d '{"owner": "dotnet", "repository": "core"}' localhost:8080/api/v1/github/queue
 ```
 ## CURL-Example to insert github repository into queue with filter
+Endpoint: `/api/v1/github/queue/filter`
+
 ```
 curl -XPOST -H "Content-type: application/json" -d '{"owner": "dotnet", "repository": "core", "repositoryFilter": {"githubIssueFilter": {}, "gitCommitFilter": {"enableAuthorName": true}}}' localhost:8080/api/v1/github/queue/filter
 ```
@@ -90,6 +96,7 @@ NOTE:
 | `enableCommitBranch` | `bool` | 
 
 ## CURL-Example to delete github repository complete from queue
+Endpoint: `/api/v1/github/rdf/completedelete/{id}`
 ```
 curl -XDELETE localhost:8080/api/v1/github/rdf/completedelete/{id}
 ```
