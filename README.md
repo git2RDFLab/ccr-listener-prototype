@@ -60,7 +60,7 @@ NOTE:
 - when any filter is specified, all other not explicitly named filters are _disabled_ (`false`) by default
 - there are currently 2 filter-types which _all must_ be speciified when using a filter
 
-### `gitCommitFilter`:
+### `githubIssueFilter`:
 | FilterName |  Type |
 | ----- | ----------- |
 | `enableIssueId` | `bool` |
