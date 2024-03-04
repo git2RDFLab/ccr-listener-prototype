@@ -90,5 +90,7 @@ NOTE:
 | `enableCommitBranch` | `bool` | 
 
 ## CURL-Example to delete github repository complete from queue
+```
 curl -XDELETE localhost:8080/api/v1/github/rdf/completedelete/{id}
+```
 
