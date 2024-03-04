@@ -37,7 +37,6 @@ curl -XPOST -F "file=@gitexample.zip;filename=gitexample.zip;type=application/zi
 ### CURL-Example to delete .git repo + all connected resources
 curl -XDELETE localhost:8080/api/v1/git/rdf/completedelete/{id}
 
-
 ## CURL-Example to list all github repositories in queue
 curl -XGET localhost:8080/api/v1/github
 
@@ -45,7 +44,40 @@ curl -XGET localhost:8080/api/v1/github
 curl -XPOST -H "Content-type: application/json" -d '{"owner": "dotnet", "repository": "core"}' localhost:8080/api/v1/github/queue
 
 ## CURL-Example to insert github repository into queue with filter
-curl -XPOST -H "Content-type: application/json" -d '{"owner": "dotnet", "repository": "core", "repositoryFilter": {"gitCommitFilter": {"enableAuthorName": true}}}' localhost:8080/api/v1/github/queue/filter
+curl -XPOST -H "Content-type: application/json" -d '{"owner": "dotnet", "repository": "core", "repositoryFilter": {"githubIssueFilter": {}, "gitCommitFilter": {"enableAuthorName": true}}}' localhost:8080/api/v1/github/queue/filter
+
+NOTE:
+- when any filter is specified, all other not explicitly named filters are _disabled_ (`false`) by default
+- there are currently 2 filter-types which _all must_ be speciified when using a filter
+
+### `gitCommitFilter`:
+| FilterName |  Type |
+| ----- | ----------- |
+| `enableIssueId` | `bool` |
+| `enableIssueState` | `bool` |
+| `enableIssueTitle` | `bool` |
+| `enableIssueBody` | `bool` |
+| `enableIssueUser` | `bool` |
+| `enableIssueLabels` | `bool` |
+| `enableIssueAssignees` | `bool` |
+| `enableIssueMilestone` | `bool` |
+| `enableIssueCreatedAt` | `bool` |
+| `enableIssueUpdatedAt` | `bool` |
+| `enableIssueClosedAt` | `bool` |
+
+### `gitCommitFilter`:
+| FilterName | Type |
+| ----- | ----------- |
+| `enableCommitHash` | `bool` | 
+| `enableAuthorName` | `bool` | 
+| `enableAuthorEmail` | `bool` | 
+| `enableAuthorDate` | `bool` | 
+| `enableCommitDate` | `bool` | 
+| `enableCommitterName` | `bool` | 
+| `enableCommitterEmail` | `bool` | 
+| `enableCommitMessage` | `bool` | 
+| `enableCommitDiff` | `bool` | 
+| `enableCommitBranch` | `bool` | 
 
 ## CURL-Example to delete github repository complete from queue
 curl -XDELETE localhost:8080/api/v1/github/rdf/completedelete/{id}
