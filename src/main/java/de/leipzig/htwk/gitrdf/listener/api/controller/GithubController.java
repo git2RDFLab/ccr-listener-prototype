@@ -31,19 +31,20 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping(path = "/listener-service/api/v1/github")
 public class GithubController {
 
     private final GithubService githubService;
 
     private final GithubRepositoryFilterFactory githubRepositoryFilterFactory;
 
-    @GetMapping("/api/v1/github")
+    @GetMapping
     public List<GithubRepositoryOrderResponse> getAllGithubRepositoryOrderEntries() {
         List<GithubRepositoryOrderEntity> results = githubService.findAll();
         return  GithubRepositoryOrderResponse.toList(results);
     }
 
-    @PostMapping("/api/v1/github/queue")
+    @PostMapping("/queue")
     public GithubRepositorySavedResponse addGithubRepo(@RequestBody AddGithupRepoRequestBody requestBody) {
 
         if (StringUtils.isBlank(requestBody.getOwner())) {
@@ -62,7 +63,7 @@ public class GithubController {
         return new GithubRepositorySavedResponse(id);
     }
 
-    @PostMapping("/api/v1/github/queue/filter")
+    @PostMapping("/queue/filter")
     public GithubRepositorySavedResponse addGithubRepoWithFilters(
             @RequestBody AddGithubRepoFilterRequestBody requestBody) {
 
@@ -87,7 +88,7 @@ public class GithubController {
         return new GithubRepositorySavedResponse(id);
     }
 
-    @GetMapping(path = "/api/v1/github/rdf/download/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @GetMapping(path = "/rdf/download/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public @ResponseBody Resource downloadRdf(@PathVariable("id") String id, HttpServletResponse httpServletResponse) throws SQLException, IOException {
 
         long longId = LongUtils.convertStringToLongIdOrThrowException(id);
@@ -105,7 +106,7 @@ public class GithubController {
         return responseResource;
     }
 
-    @DeleteMapping(path = "/api/v1/github/rdf/completedelete/{id}")
+    @DeleteMapping(path = "/rdf/completedelete/{id}")
     public ResponseEntity<Void> deleteGitAndRdf(@PathVariable("id") String id) {
 
         long longId = LongUtils.convertStringToLongIdOrThrowException(id);

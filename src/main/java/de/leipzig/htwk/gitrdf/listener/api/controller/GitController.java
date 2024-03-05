@@ -27,17 +27,18 @@ import java.util.zip.ZipInputStream;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping(path = "/listener-service/api/v1/git")
 public class GitController {
 
     private final GitService gitService;
 
-    @GetMapping("/api/v1/git")
+    @GetMapping
     public List<GitRepositoryOrderResponse> getAllGitRepositoryOrderEntries() {
         List<GitRepositoryOrderEntity> results = gitService.findAll();
         return GitRepositoryOrderResponse.toList(results);
     }
 
-    @PostMapping(path = "/api/v1/git/upload")
+    @PostMapping(path = "/upload")
     public GitRepositorySavedResponse uploadGitRepository(
             @RequestParam("file") MultipartFile file, @RequestParam("name") String fileName) throws IOException {
 
@@ -69,7 +70,7 @@ public class GitController {
     }
 
     //@GetMapping(path = "/api/v1/git/rdf/download/{id}", produces = "text/ttl; charset=utf-8")
-    @GetMapping(path = "/api/v1/git/rdf/download/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @GetMapping(path = "/rdf/download/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public @ResponseBody Resource downloadRdf(@PathVariable("id") String id, HttpServletResponse httpServletResponse) throws SQLException, IOException {
 
         long longId = LongUtils.convertStringToLongIdOrThrowException(id);
@@ -83,7 +84,7 @@ public class GitController {
         return responseResource;
     }
 
-    @DeleteMapping(path = "/api/v1/git/rdf/completedelete/{id}")
+    @DeleteMapping(path = "/rdf/completedelete/{id}")
     public ResponseEntity<Void> deleteGitAndRdf(@PathVariable("id") String id) {
 
         long longId = LongUtils.convertStringToLongIdOrThrowException(id);
