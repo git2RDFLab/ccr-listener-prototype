@@ -13,3 +13,9 @@ spring:
 
 server:
   port: 8080
+
+springdoc:
+  api-docs:
+    path: /listener-service/api-docs
+  swagger-ui:
+    path: /listener-service/swagger

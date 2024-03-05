@@ -4,9 +4,6 @@ import lombok.Value;
 
 @Value
 public class BadRequestErrorResponse {
-
-
-
     String status;
     String reason;
     String solution;

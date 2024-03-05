@@ -2,6 +2,7 @@ package de.leipzig.htwk.gitrdf.listener.api.controller;
 
 import de.leipzig.htwk.gitrdf.database.common.entity.GithubRepositoryFilter;
 import de.leipzig.htwk.gitrdf.database.common.entity.GithubRepositoryOrderEntity;
+import de.leipzig.htwk.gitrdf.listener.api.documentation.*;
 import de.leipzig.htwk.gitrdf.listener.api.exception.BadRequestException;
 import de.leipzig.htwk.gitrdf.listener.api.model.request.AddGithubRepoFilterRequestBody;
 import de.leipzig.htwk.gitrdf.listener.api.model.request.AddGithupRepoRequestBody;
@@ -10,6 +11,11 @@ import de.leipzig.htwk.gitrdf.listener.api.model.response.GithubRepositorySavedR
 import de.leipzig.htwk.gitrdf.listener.factory.GithubRepositoryFilterFactory;
 import de.leipzig.htwk.gitrdf.listener.service.GithubService;
 import de.leipzig.htwk.gitrdf.listener.utils.LongUtils;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,12 +44,31 @@ public class GithubController {
 
     private final GithubRepositoryFilterFactory githubRepositoryFilterFactory;
 
+    @Operation(summary = "Get all github order entries")
+    @ApiResponse(
+            responseCode = "200",
+            description = "All github order entries",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                    array = @ArraySchema(
+                            schema = @Schema(implementation = GithubRepositoryOrderResponse.class))))
+    @GeneralInternalServerErrorApiResponse
     @GetMapping
     public List<GithubRepositoryOrderResponse> getAllGithubRepositoryOrderEntries() {
         List<GithubRepositoryOrderEntity> results = githubService.findAll();
         return  GithubRepositoryOrderResponse.toList(results);
     }
 
+    @Operation(summary = "Add a github entry to the queue")
+    @ApiResponse(
+            responseCode = "200",
+            description = "Added the specified github entry to the queue",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                    schema = @Schema(implementation = GithubRepositorySavedResponse.class)))
+    @NoOwnerSpecifiedBadRequestApiResponse
+    @NoRepositorySpecifiedBadRequestApiResponse
+    @GeneralInternalServerErrorApiResponse
     @PostMapping("/queue")
     public GithubRepositorySavedResponse addGithubRepo(@RequestBody AddGithupRepoRequestBody requestBody) {
 
@@ -63,6 +88,19 @@ public class GithubController {
         return new GithubRepositorySavedResponse(id);
     }
 
+    @Operation(
+            summary = "Add a github entry to the queue while also specifying filter properties",
+            description = "At least one filter property has to be set. Left out filter properties will be disabled.")
+    @ApiResponse(
+            responseCode = "200",
+            description = "Added the specified github entry with the specified filter properties to the queue",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                    schema = @Schema(implementation = GithubRepositorySavedResponse.class)))
+    @NoOwnerSpecifiedBadRequestApiResponse
+    @NoRepositorySpecifiedBadRequestApiResponse
+    @CantDisableAllFilterOptionsBadRequestApiResponse
+    @GeneralInternalServerErrorApiResponse
     @PostMapping("/queue/filter")
     public GithubRepositorySavedResponse addGithubRepoWithFilters(
             @RequestBody AddGithubRepoFilterRequestBody requestBody) {
@@ -88,6 +126,15 @@ public class GithubController {
         return new GithubRepositorySavedResponse(id);
     }
 
+    @Operation(summary = "Download the produced rdf file")
+    @ApiResponse(
+            responseCode = "200",
+            description = "Rdf file",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_OCTET_STREAM_VALUE))
+    @InvalidLongIdBadRequestApiResponse
+    @NoRdfFileAvailableYetBadRequestApiResponse
+    @GeneralInternalServerErrorApiResponse
     @GetMapping(path = "/rdf/download/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public @ResponseBody Resource downloadRdf(@PathVariable("id") String id, HttpServletResponse httpServletResponse) throws SQLException, IOException {
 
@@ -106,6 +153,12 @@ public class GithubController {
         return responseResource;
     }
 
+    @Operation(summary = "Delete specified github order entry and all connected data")
+    @ApiResponse(
+            responseCode = "204",
+            description = "Successfully deleted github entry")
+    @InvalidLongIdBadRequestApiResponse
+    @GeneralInternalServerErrorApiResponse
     @DeleteMapping(path = "/rdf/completedelete/{id}")
     public ResponseEntity<Void> deleteGitAndRdf(@PathVariable("id") String id) {
 

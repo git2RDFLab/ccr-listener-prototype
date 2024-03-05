@@ -1,11 +1,13 @@
 package de.leipzig.htwk.gitrdf.listener.api.model.request;
 
 import de.leipzig.htwk.gitrdf.listener.api.model.request.composite.filter.RepoFilterRequestModel;
+import jakarta.validation.constraints.NotNull;
 
 import java.beans.ConstructorProperties;
 
 public class AddGithubRepoFilterRequestBody extends AddGithupRepoRequestBody {
 
+    @NotNull
     private final RepoFilterRequestModel repositoryFilter;
 
     @ConstructorProperties({"owner", "repository", "repositoryFilter"})
