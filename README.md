@@ -22,6 +22,9 @@ The database shared common dependency is already included in this project as a d
 </dependency>
 ```
 
+## OpenAPI Documentation
+- the open-api documentation can be found under '/listener-service/swagger'
+
 ## Environment Variables
 
 | Environment Variables        | Description                                                                                                                                                                                                                           |
