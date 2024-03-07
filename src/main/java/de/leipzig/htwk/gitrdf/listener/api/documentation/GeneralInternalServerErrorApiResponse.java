@@ -1,6 +1,7 @@
 package de.leipzig.htwk.gitrdf.listener.api.documentation;
 
 import de.leipzig.htwk.gitrdf.listener.api.model.response.error.BadRequestErrorResponse;
+import de.leipzig.htwk.gitrdf.listener.api.model.response.error.InternalServerErrorResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -19,7 +20,7 @@ import java.lang.annotation.Target;
         description = "Internal Server Error",
         content = @Content(
                 mediaType = MediaType.APPLICATION_JSON_VALUE,
-                schema = @Schema(implementation = BadRequestErrorResponse.class),
+                schema = @Schema(implementation = InternalServerErrorResponse.class),
                 examples = @ExampleObject("{\"status\": \"Internal Server Error\", \"reason\": \"An unexpected exception occurred\", \"solution\": \"Please try again later\"}")))
 public @interface GeneralInternalServerErrorApiResponse {
 }
