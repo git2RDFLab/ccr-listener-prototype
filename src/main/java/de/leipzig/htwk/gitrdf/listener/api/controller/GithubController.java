@@ -8,12 +8,14 @@ import de.leipzig.htwk.gitrdf.listener.api.model.request.AddGithubRepoFilterRequ
 import de.leipzig.htwk.gitrdf.listener.api.model.request.AddGithupRepoRequestBody;
 import de.leipzig.htwk.gitrdf.listener.api.model.response.GithubRepositoryOrderResponse;
 import de.leipzig.htwk.gitrdf.listener.api.model.response.GithubRepositorySavedResponse;
+import de.leipzig.htwk.gitrdf.listener.api.model.response.error.BadRequestErrorResponse;
 import de.leipzig.htwk.gitrdf.listener.factory.GithubRepositoryFilterFactory;
 import de.leipzig.htwk.gitrdf.listener.service.GithubService;
 import de.leipzig.htwk.gitrdf.listener.utils.LongUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.servlet.http.HttpServletResponse;
@@ -66,8 +68,21 @@ public class GithubController {
             content = @Content(
                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                     schema = @Schema(implementation = GithubRepositorySavedResponse.class)))
-    @NoOwnerSpecifiedBadRequestApiResponse
-    @NoRepositorySpecifiedBadRequestApiResponse
+    @ApiResponse(
+            responseCode = "400",
+            description = "Bad Request",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                    schema = @Schema(implementation = BadRequestErrorResponse.class),
+                    examples = {
+                            @ExampleObject(
+                                    name = "No owner was specified",
+                                    description = "No owner was specified",
+                                    value = "{\"status\": \"Bad Request\", \"reason\": \"No owner was specified\", \"solution\": \"Specify an owner. For example: 'dotnet' (who is the owner for example of the repo 'core')\"}"),
+                            @ExampleObject(
+                                    name = "No repository was specified",
+                                    description = "No repository was specified",
+                                    value = "{\"status\": \"Bad Request\", \"reason\": \"No repository was specified\", \"solution\": \"Specify a repository. For example: 'core' (the owner 'dotnet' provides for example a 'core' repository)\"}")}))
     @GeneralInternalServerErrorApiResponse
     @PostMapping("/queue")
     public GithubRepositorySavedResponse addGithubRepo(@RequestBody AddGithupRepoRequestBody requestBody) {
@@ -97,9 +112,25 @@ public class GithubController {
             content = @Content(
                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                     schema = @Schema(implementation = GithubRepositorySavedResponse.class)))
-    @NoOwnerSpecifiedBadRequestApiResponse
-    @NoRepositorySpecifiedBadRequestApiResponse
-    @CantDisableAllFilterOptionsBadRequestApiResponse
+    @ApiResponse(
+            responseCode = "400",
+            description = "Bad Request",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                    schema = @Schema(implementation = BadRequestErrorResponse.class),
+                    examples = {
+                            @ExampleObject(
+                                    name = "No owner was specified",
+                                    description = "No owner was specified",
+                                    value = "{\"status\": \"Bad Request\", \"reason\": \"No owner was specified\", \"solution\": \"Specify an owner. For example: 'dotnet' (who is the owner for example of the repo 'core')\"}"),
+                            @ExampleObject(
+                                    name = "No repository was specified",
+                                    description = "No repository was specified",
+                                    value = "{\"status\": \"Bad Request\", \"reason\": \"No repository was specified\", \"solution\": \"Specify a repository. For example: 'core' (the owner 'dotnet' provides for example a 'core' repository)\"}"),
+                            @ExampleObject(
+                                    name = "Can't disable all filter options",
+                                    description = "Can't disable all filter options",
+                                    value = "{\"status\": \"Bad Request\", \"reason\": \"All repository filter options are disabled\", \"solution\": \"Enable at least one repository filter option\"}")}))
     @GeneralInternalServerErrorApiResponse
     @PostMapping("/queue/filter")
     public GithubRepositorySavedResponse addGithubRepoWithFilters(
@@ -132,8 +163,21 @@ public class GithubController {
             description = "Rdf file",
             content = @Content(
                     mediaType = MediaType.APPLICATION_OCTET_STREAM_VALUE))
-    @InvalidLongIdBadRequestApiResponse
-    @NoRdfFileAvailableYetBadRequestApiResponse
+    @ApiResponse(
+            responseCode = "400",
+            description = "Bad Request",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                    schema = @Schema(implementation = BadRequestErrorResponse.class),
+                    examples = {
+                            @ExampleObject(
+                                    name = "Invalid id was specified",
+                                    description = "Invalid id was specified",
+                                    value = "{\"status\": \"Bad Request\", \"reason\": \"Invalid id 'blub' was given\", \"solution\": \"Provide a valid id. Example id: 55\"}"),
+                            @ExampleObject(
+                                    name = "No rdf file is available yet",
+                                    description = "No rdf file is available yet",
+                                    value = "{\"status\": \"Bad Request\", \"reason\": \"Specified repository was not yet processed and therefore also doesnt contain a rdf file to download\", \"solution\": \"Wait until the repository was successfully processed (ie. status of repository is 'DONE')\"}")}))
     @GeneralInternalServerErrorApiResponse
     @GetMapping(path = "/rdf/download/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public @ResponseBody Resource downloadRdf(@PathVariable("id") String id, HttpServletResponse httpServletResponse) throws SQLException, IOException {

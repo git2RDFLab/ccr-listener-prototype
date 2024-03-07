@@ -1,5 +1,6 @@
 package de.leipzig.htwk.gitrdf.listener.api.model.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.leipzig.htwk.gitrdf.listener.api.model.request.composite.filter.RepoFilterRequestModel;
 import jakarta.validation.constraints.NotNull;
 
@@ -20,6 +21,7 @@ public class AddGithubRepoFilterRequestBody extends AddGithupRepoRequestBody {
         return this.repositoryFilter == null ? RepoFilterRequestModel.DISABLED : this.repositoryFilter;
     }
 
+    @JsonIgnore // this shouldn't be a field in the springdoc openapi specification
     public boolean isRepositoryFilterEmpty() {
         return this.repositoryFilter == null;
     }

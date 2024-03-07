@@ -2,6 +2,7 @@ package de.leipzig.htwk.gitrdf.listener.api.model.response;
 
 import de.leipzig.htwk.gitrdf.database.common.entity.GithubRepositoryOrderEntity;
 import de.leipzig.htwk.gitrdf.database.common.entity.enums.GitRepositoryOrderStatus;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Value;
 
 import java.util.List;
@@ -25,6 +26,10 @@ public class GithubRepositoryOrderResponse {
     long id;
     GitRepositoryOrderStatus status;
     int numberOfTries;
+
+    @Schema(example = "dotnet")
     String owner;
+
+    @Schema(example = "core")
     String repository;
 }
