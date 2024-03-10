@@ -5,6 +5,7 @@ import de.leipzig.htwk.gitrdf.database.common.entity.GithubRepositoryOrderEntity
 import de.leipzig.htwk.gitrdf.database.common.entity.enums.GitRepositoryOrderStatus;
 import de.leipzig.htwk.gitrdf.database.common.entity.lob.GithubRepositoryOrderEntityLobs;
 import de.leipzig.htwk.gitrdf.database.common.repository.GithubRepositoryOrderRepository;
+import de.leipzig.htwk.gitrdf.listener.api.exception.NotFoundException;
 import de.leipzig.htwk.gitrdf.listener.service.GithubService;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Service;
@@ -63,6 +64,10 @@ public class GithubServiceImpl implements GithubService {
         GithubRepositoryOrderEntity githubRepositoryOrderEntity
                 = entityManager.find(GithubRepositoryOrderEntity.class, id);
 
+        if (githubRepositoryOrderEntity == null) {
+            throw NotFoundException.githubEntryNotFound(id);
+        }
+
         return githubRepositoryOrderEntity.getStatus().equals(GitRepositoryOrderStatus.DONE);
     }
 
@@ -92,6 +97,10 @@ public class GithubServiceImpl implements GithubService {
 
         GithubRepositoryOrderEntity githubRepositoryOrderEntity
                 = entityManager.find(GithubRepositoryOrderEntity.class, id);
+
+        if (githubRepositoryOrderEntity == null) {
+            throw NotFoundException.githubEntryNotFound(id);
+        }
 
         entityManager.remove(githubRepositoryOrderEntityLobs);
         entityManager.remove(githubRepositoryOrderEntity);

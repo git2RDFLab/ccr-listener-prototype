@@ -9,6 +9,7 @@ import de.leipzig.htwk.gitrdf.listener.api.model.request.AddGithupRepoRequestBod
 import de.leipzig.htwk.gitrdf.listener.api.model.response.GithubRepositoryOrderResponse;
 import de.leipzig.htwk.gitrdf.listener.api.model.response.GithubRepositorySavedResponse;
 import de.leipzig.htwk.gitrdf.listener.api.model.response.error.BadRequestErrorResponse;
+import de.leipzig.htwk.gitrdf.listener.api.model.response.error.NotFoundErrorResponse;
 import de.leipzig.htwk.gitrdf.listener.factory.GithubRepositoryFilterFactory;
 import de.leipzig.htwk.gitrdf.listener.service.GithubService;
 import de.leipzig.htwk.gitrdf.listener.utils.LongUtils;
@@ -180,6 +181,17 @@ public class GithubController {
                                     name = "No rdf file is available yet",
                                     description = "No rdf file is available yet",
                                     value = "{\"status\": \"Bad Request\", \"reason\": \"Specified repository was not yet processed and therefore also doesnt contain a rdf file to download\", \"solution\": \"Wait until the repository was successfully processed (ie. status of repository is 'DONE')\"}")}))
+    @ApiResponse(
+            responseCode = "404",
+            description = "Not found",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                    schema = @Schema(implementation = NotFoundErrorResponse.class),
+                    examples = {
+                            @ExampleObject(
+                                    name = "No github to rdf entry found",
+                                    description = "No github to rdf entry found",
+                                    value = "{\"status\": \"Not found\", \"reason\": \"No github to rdf entry found for id '3'\", \"solution\": \"Provide an id for an existing github to rdf entry\"}")}))
     @GeneralInternalServerErrorApiResponse
     @GetMapping(path = "/rdf/download/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public @ResponseBody Resource downloadRdf(@PathVariable("id") String id, HttpServletResponse httpServletResponse) throws SQLException, IOException {
@@ -204,6 +216,17 @@ public class GithubController {
             responseCode = "204",
             description = "Successfully deleted github entry")
     @InvalidLongIdBadRequestApiResponse
+    @ApiResponse(
+            responseCode = "404",
+            description = "Not found",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                    schema = @Schema(implementation = NotFoundErrorResponse.class),
+                    examples = {
+                            @ExampleObject(
+                                    name = "No github to rdf entry found",
+                                    description = "No github to rdf entry found",
+                                    value = "{\"status\": \"Not found\", \"reason\": \"No github to rdf entry found for id '3'\", \"solution\": \"Provide an id for an existing github to rdf entry\"}")}))
     @GeneralInternalServerErrorApiResponse
     @DeleteMapping(path = "/rdf/completedelete/{id}")
     public ResponseEntity<Void> deleteGitAndRdf(@PathVariable("id") String id) {
