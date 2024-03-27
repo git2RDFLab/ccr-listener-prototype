@@ -44,12 +44,14 @@ public class GithubRepositoryFilterFactory {
                 model.isCommitMessageEnabled(),
                 model.isCommitDiffEnabled(),
                 model.isCommitBranchEnabled(),
-                model.isCommitTagEnabled());
+                model.isCommitTagEnabled(),
+                model.isBranchSnapshotEnabled());
     }
 
     private GithubIssueRepositoryFilter convertFromGithubIssueFilterRequestModel(GithubIssueFilterRequestModel model) {
         return new GithubIssueRepositoryFilter(
                 model.isIssueIdEnabled(),
+                model.isIssueNumberEnabled(),
                 model.isIssueStateEnabled(),
                 model.isIssueTitleEnabled(),
                 model.isIssueBodyEnabled(),

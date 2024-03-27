@@ -20,6 +20,7 @@ public class GithubIssueFilterRequestModel {
             true,
             true,
             true,
+            true,
             true);
 
     public static final GithubIssueFilterRequestModel DISABLED = new GithubIssueFilterRequestModel(
@@ -33,9 +34,12 @@ public class GithubIssueFilterRequestModel {
             false,
             false,
             false,
+            false,
             false);
 
     private final Boolean enableIssueId;
+
+    private final Boolean enableIssueNumber;
 
     private final Boolean enableIssueState;
 
@@ -60,6 +64,7 @@ public class GithubIssueFilterRequestModel {
 
     @ConstructorProperties({
             "enableIssueId",
+            "enableIssueNumber",
             "enableIssueState",
             "enableIssueTitle",
             "enableIssueBody",
@@ -72,6 +77,7 @@ public class GithubIssueFilterRequestModel {
             "enableIssueClosedAt"})
     public GithubIssueFilterRequestModel(
             Boolean enableIssueId,
+            Boolean enableIssueNumber,
             Boolean enableIssueState,
             Boolean enableIssueTitle,
             Boolean enableIssueBody,
@@ -84,6 +90,7 @@ public class GithubIssueFilterRequestModel {
             Boolean enableIssueClosedAt) {
 
         this.enableIssueId = enableIssueId;
+        this.enableIssueNumber = enableIssueNumber;
         this.enableIssueState = enableIssueState;
         this.enableIssueTitle = enableIssueTitle;
         this.enableIssueBody = enableIssueBody;
@@ -98,6 +105,7 @@ public class GithubIssueFilterRequestModel {
 
     public boolean areAllFilterOptionsDisabled() {
         return !isIssueIdEnabled()
+                && !isIssueNumberEnabled()
                 && !isIssueStateEnabled()
                 && !isIssueTitleEnabled()
                 && !isIssueBodyEnabled()
@@ -112,6 +120,10 @@ public class GithubIssueFilterRequestModel {
 
     public Boolean isIssueIdEnabled() {
         return returnValueOrFalseIfNull(enableIssueId);
+    }
+
+    public Boolean isIssueNumberEnabled() {
+        return returnValueOrFalseIfNull(enableIssueNumber);
     }
 
     public Boolean isIssueStateEnabled() {

@@ -20,9 +20,11 @@ public class GitCommitFilterRequestModel {
             true,
             true,
             true,
+            true,
             true);
 
     public static final GitCommitFilterRequestModel DISABLED = new GitCommitFilterRequestModel(
+            false,
             false,
             false,
             false,
@@ -57,6 +59,8 @@ public class GitCommitFilterRequestModel {
 
     private final Boolean enableCommitTag;
 
+    private final Boolean enableBranchSnapshot;
+
 
     @ConstructorProperties({
             "enableCommitHash",
@@ -69,7 +73,9 @@ public class GitCommitFilterRequestModel {
             "enableCommitMessage",
             "enableCommitDiff",
             "enableCommitBranch",
-            "enableCommitTag"})
+            "enableCommitTag",
+            "enableBranchSnapshot"})
+
     public GitCommitFilterRequestModel(
             Boolean enableCommitHash,
             Boolean enableAuthorName,
@@ -81,7 +87,8 @@ public class GitCommitFilterRequestModel {
             Boolean enableCommitMessage,
             Boolean enableCommitDiff,
             Boolean enableCommitBranch,
-            Boolean enableCommitTag) {
+            Boolean enableCommitTag,
+            Boolean enableBranchSnapshot) {
 
         this.enableCommitHash = enableCommitHash;
         this.enableAuthorName = enableAuthorName;
@@ -94,6 +101,7 @@ public class GitCommitFilterRequestModel {
         this.enableCommitDiff = enableCommitDiff;
         this.enableCommitBranch = enableCommitBranch;
         this.enableCommitTag = enableCommitTag;
+        this.enableBranchSnapshot = enableBranchSnapshot;
     }
 
     public boolean areAllFilterOptionsDisabled() {
@@ -107,7 +115,8 @@ public class GitCommitFilterRequestModel {
                 && !isCommitMessageEnabled()
                 && !isCommitDiffEnabled()
                 && !isCommitBranchEnabled()
-                && !isCommitTagEnabled();
+                && !isCommitTagEnabled()
+                && !isBranchSnapshotEnabled();
     }
 
     public Boolean isCommitHashEnabled() {
@@ -152,5 +161,9 @@ public class GitCommitFilterRequestModel {
 
     public Boolean isCommitTagEnabled() {
         return returnValueOrFalseIfNull(enableCommitTag);
+    }
+
+    public Boolean isBranchSnapshotEnabled() {
+        return returnValueOrFalseIfNull(enableBranchSnapshot);
     }
 }
