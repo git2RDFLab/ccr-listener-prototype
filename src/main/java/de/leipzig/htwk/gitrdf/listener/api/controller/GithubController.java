@@ -101,7 +101,7 @@ public class GithubController {
         long id = githubService.insertGithubRepositoryIntoQueue(
                 requestBody.getOwner(),
                 requestBody.getRepository(),
-                GithubRepositoryFilter.ENABLED);
+                GithubRepositoryFilter.DEFAULT);
 
         return new GithubRepositorySavedResponse(id);
     }

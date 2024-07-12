@@ -16,7 +16,7 @@
 	<properties>
 		<java.version>21</java.version>
 
-		<de.leipzig.htwk.gitrdf.database.common.version>1.0.4-SNAPSHOT</de.leipzig.htwk.gitrdf.database.common.version>
+		<de.leipzig.htwk.gitrdf.database.common.version>1.0.5-SNAPSHOT</de.leipzig.htwk.gitrdf.database.common.version>
 	</properties>
 	<dependencies>
 
