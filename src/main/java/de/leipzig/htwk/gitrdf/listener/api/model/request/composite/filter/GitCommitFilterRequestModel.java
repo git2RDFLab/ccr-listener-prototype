@@ -1,5 +1,6 @@
 package de.leipzig.htwk.gitrdf.listener.api.model.request.composite.filter;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
 
 import java.beans.ConstructorProperties;
@@ -119,50 +120,62 @@ public class GitCommitFilterRequestModel {
                 && !isBranchSnapshotEnabled();
     }
 
+    @Schema(hidden = true)
     public Boolean isCommitHashEnabled() {
         return returnValueOrFalseIfNull(enableCommitHash);
     }
 
+    @Schema(hidden = true)
     public Boolean isAuthorNameEnabled() {
         return returnValueOrFalseIfNull(enableAuthorName);
     }
 
+    @Schema(hidden = true)
     public Boolean isAuthorEmailEnabled() {
         return returnValueOrFalseIfNull(enableAuthorEmail);
     }
 
+    @Schema(hidden = true)
     public Boolean isAuthorDateEnabled() {
         return returnValueOrFalseIfNull(enableAuthorDate);
     }
 
+    @Schema(hidden = true)
     public Boolean isCommitDateEnabled() {
         return returnValueOrFalseIfNull(enableCommitDate);
     }
 
+    @Schema(hidden = true)
     public Boolean isCommitterNameEnabled() {
         return returnValueOrFalseIfNull(enableCommitterName);
     }
 
+    @Schema(hidden = true)
     public Boolean isCommitterEmailEnabled() {
         return returnValueOrFalseIfNull(enableCommitterEmail);
     }
 
+    @Schema(hidden = true)
     public Boolean isCommitMessageEnabled() {
         return returnValueOrFalseIfNull(enableCommitMessage);
     }
 
+    @Schema(hidden = true)
     public Boolean isCommitDiffEnabled() {
         return returnValueOrFalseIfNull(enableCommitDiff);
     }
 
+    @Schema(hidden = true)
     public Boolean isCommitBranchEnabled() {
         return returnValueOrFalseIfNull(enableCommitBranch);
     }
 
+    @Schema(hidden = true)
     public Boolean isCommitTagEnabled() {
         return returnValueOrFalseIfNull(enableCommitTag);
     }
 
+    @Schema(hidden = true)
     public Boolean isBranchSnapshotEnabled() {
         return returnValueOrFalseIfNull(enableBranchSnapshot);
     }

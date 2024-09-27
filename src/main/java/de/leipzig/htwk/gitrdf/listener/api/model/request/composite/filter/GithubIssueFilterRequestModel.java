@@ -1,5 +1,6 @@
 package de.leipzig.htwk.gitrdf.listener.api.model.request.composite.filter;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
 
 import java.beans.ConstructorProperties;
@@ -118,50 +119,62 @@ public class GithubIssueFilterRequestModel {
                 && !isIssueClosedAtEnabled();
     }
 
+    @Schema(hidden = true)
     public Boolean isIssueIdEnabled() {
         return returnValueOrFalseIfNull(enableIssueId);
     }
 
+    @Schema(hidden = true)
     public Boolean isIssueNumberEnabled() {
         return returnValueOrFalseIfNull(enableIssueNumber);
     }
 
+    @Schema(hidden = true)
     public Boolean isIssueStateEnabled() {
         return returnValueOrFalseIfNull(enableIssueState);
     }
 
+    @Schema(hidden = true)
     public Boolean isIssueTitleEnabled() {
         return returnValueOrFalseIfNull(enableIssueTitle);
     }
 
+    @Schema(hidden = true)
     public Boolean isIssueBodyEnabled() {
         return returnValueOrFalseIfNull(enableIssueBody);
     }
 
+    @Schema(hidden = true)
     public Boolean isIssueUserEnabled() {
         return returnValueOrFalseIfNull(enableIssueUser);
     }
 
+    @Schema(hidden = true)
     public Boolean isIssueLabelsEnabled() {
         return returnValueOrFalseIfNull(enableIssueLabels);
     }
 
+    @Schema(hidden = true)
     public Boolean isIssueAssigneesEnabled() {
         return returnValueOrFalseIfNull(enableIssueAssignees);
     }
 
+    @Schema(hidden = true)
     public Boolean isIssueMilestoneEnabled() {
         return returnValueOrFalseIfNull(enableIssueMilestone);
     }
 
+    @Schema(hidden = true)
     public Boolean isIssueCreatedAtEnabled() {
         return returnValueOrFalseIfNull(enableIssueCreatedAt);
     }
 
+    @Schema(hidden = true)
     public Boolean isIssueUpdatedAtEnabled() {
         return returnValueOrFalseIfNull(enableIssueUpdatedAt);
     }
 
+    @Schema(hidden = true)
     public Boolean isIssueClosedAtEnabled() {
         return returnValueOrFalseIfNull(enableIssueClosedAt);
     }
