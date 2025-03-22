@@ -1,28 +1,23 @@
 <a href="https://github.com/git2RDFLab/"><img align="right" role="right" height="96" src="https://github.com/git2RDFLab/.github/blob/main/profile/images/GitLotus-logo.png?raw=true" style="height: 96px;z-index: 1000000" title="GitLotus" alt="GitLotus"/></a>
 
-# GitLotus component -- Prototype for accepting Git repositories (that should be transformed to RDF data) and providing status information about the status of tasks
+# GitLotus component -- Web service for accepting Git repositories (that should be transformed to RDF data) and providing status information about the status of tasks
 
-## Dependency notice
+The component is available as a Docker image [superdose/git2rdf-listener-service](https://hub.docker.com/r/superdose/git2rdf-listener-service/tags).
+See the repository [project-deployment-compose](https://github.com/git2RDFLab/project-deployment-compose/tree/main) for a prepared Docker container starting and configuration script.
 
-To remove duplicate database JPA definitions, a shared database commons project was introduced, which is used
-in all projects, that share the mentioned JPA entities and logic.
-The project can be found at https://github.com/git2RDFLab/database-shared-common.
+## Build and execution environment
 
-In order to compile this project you have to pull the shared database common project and install the maven artifact locally as a dependency, so this project can find the necessary dependency.
+The [Spring Boot](https://spring.io/projects/spring-boot) service can be created using [Apache Maven](https://maven.apache.org/).
 
-```bash
-mvn clean install
+```ShellSession
+git clone git@github.com:git2RDFLab/ccr-listener-prototype.git
+cd sparql-query-prototype
+mvn package
 ```
 
-If the GitLotus database-common dependency is already included in this project as a dependency in the pom file add the following dependency block:
+See the folder `target` for the executable JAR file.
 
-```xml
-<dependency>
-	<groupId>de.leipzig.htwk.gitrdf.database</groupId>
-	<artifactId>common</artifactId>
-	<version>${de.leipzig.htwk.gitrdf.database.common.version}</version>
-</dependency>
-```
+**Dependency notice:** To remove duplicate database [JPA](https://spring.io/projects/spring-data-jpa) definitions, a shared database commons project was introduced. See [database-shared-common](https://github.com/git2RDFLab/database-shared-common/) for installing this GitLotus-specific dependency.
 
 ## OpenAPI Documentation
 
@@ -125,3 +120,16 @@ curl -XDELETE localhost:8080/listener-service/api/v1/github/rdf/completedelete/{
 
 
 [Spring Initializr Template](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.2.2&packaging=jar&jvmVersion=21&groupId=de.leipzig.htwk.gitrdf&artifactId=listener&name=listener&description=Archetype%20project%20for%20HTWK%20Leipzig%20-%20Project%20to%20transform%20git%20to%20RDF&packageName=de.leipzig.htwk.gitrdf.listener&dependencies=web,lombok,devtools,data-jpa,postgresql,testcontainers)
+
+
+## Contribute
+
+We are happy to receive your contributions. 
+Please create a pull request or an issue. 
+As this tool is published under the MIT license, feel free to fork it and use it in your own projects.
+
+## Disclaimer
+
+This tool just temporarily stores the image data. 
+It is provided "as is" and without any warranty, express or implied.
+
