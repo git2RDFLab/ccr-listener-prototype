@@ -1,6 +1,6 @@
 <a href="https://github.com/git2RDFLab/"><img align="right" role="right" height="96" src="https://github.com/git2RDFLab/.github/blob/main/profile/images/GitLotus-logo.png?raw=true" style="height: 96px;z-index: 1000000" title="GitLotus" alt="GitLotus"/></a>
 
-# Prototype for accepting git repositories and providing status information
+# GitLotus component -- Prototype for accepting Git repositories (that should be transformed to RDF data) and providing status information about the status of tasks
 
 ## Dependency notice
 
