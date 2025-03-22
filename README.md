@@ -1,3 +1,5 @@
+<a href="https://github.com/git2RDFLab/"><img align="right" role="right" height="96" src="https://github.com/git2RDFLab/.github/blob/main/profile/images/GitLotus-logo.png?raw=true" style="height: 96px;z-index: 1000000" title="GitLotus" alt="GitLotus"/></a>
+
 # Prototype for accepting git repositories and providing status information
 
 ## Dependency notice
